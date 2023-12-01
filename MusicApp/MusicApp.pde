@@ -25,6 +25,7 @@ void draw() {} //End draw
 //
 void keyPressed() {
   song1.loop(0);
+  //if () .play(); //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
 } //End keyPressed
 //
 void mousePressed() {} //End mousePressed
