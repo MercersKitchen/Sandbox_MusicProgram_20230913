@@ -15,9 +15,9 @@ void setup() {
 void draw() {} //End draw
 //
 void keyPressed() {
+  song1.loop(0);
 } //End keyPressed
 //
-void mousePressed() {
-} //End mousePressed
+void mousePressed() {} //End mousePressed
 //
 //End MAIN Program
