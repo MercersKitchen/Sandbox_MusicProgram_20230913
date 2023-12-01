@@ -14,10 +14,14 @@ void setup() {
   //size() or fullScreen()
   //Display Algorithm
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  String pathway = "../FreeWare Music/MusicDownload/";
   String groove = "groove.mp3";
   String extension = ".mp3";
-  song1 = minim.loadFile( pathway + groove );
+  String pathway = "FreeWare Music/MusicDownload/"; //Relative Path
+  String path = sketchPath( pathway + groove ); //Absolute Path
+  // See: https://poanchen.github.io/blog/2016/11/15/how-to-add-background-music-in-processing-3.0
+  println(path);
+  
+  song1 = minim.loadFile( path );
   song1.loop(0);
 } //End setup
 //
