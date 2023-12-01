@@ -6,6 +6,10 @@ void setup() {
   //size() or fullScreen()
   //Display Algorithm
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
+  String pathway = "../FreeWare Music/Music Download/";
+  String groove = "groove.mp3";
+  String extension = ".mp3";
+  song1 = minim.loadFile( pathway + groove );
 } //End setup
 //
 void draw() {} //End draw
