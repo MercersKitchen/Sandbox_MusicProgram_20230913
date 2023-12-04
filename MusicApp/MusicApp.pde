@@ -20,16 +20,16 @@ void setup() {
   String path = sketchPath( pathway + groove ); //Absolute Path
   // See: https://poanchen.github.io/blog/2016/11/15/how-to-add-background-music-in-processing-3.0
   println(path);
-  
   song1 = minim.loadFile( path );
-  song1.loop(0);
+  //song1.loop(0);
 } //End setup
 //
 void draw() {} //End draw
 //
 void keyPressed() {
-  song1.loop(0);
-  //if () .play(); //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
+  if ( key=='P' || key=='p' ) song1.play(); //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
+  //song1.loop(0);
+  // //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
 } //End keyPressed
 //
 void mousePressed() {} //End mousePressed
