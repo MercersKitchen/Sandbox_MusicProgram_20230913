@@ -25,10 +25,15 @@ void setup() {
 } //End setup
 //
 void draw() {
+  //NOte: Looping Function
   //Note: logical operators could be nested IFs
   if ( song1.isLooping() && song1.loopCount()!=-1 ) println("There are", song1.loopCount(), "loops left.");
   if ( song1.isLooping() && song1.loopCount()==-1 ) println("Looping Infinitely");
   if ( song1.isPlaying() && !song1.isLooping() ) println("Play Once");
+  //
+  //Debugging Fast Forward and Fast Rewind
+  println( "Song Position", song1.position(), "Song Length", song1.length() );
+  //
 } //End draw
 //
 void keyPressed() {
