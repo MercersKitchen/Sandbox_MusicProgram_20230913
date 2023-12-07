@@ -38,6 +38,7 @@ void draw() {
 //
 void keyPressed() {
   if ( key=='P' || key=='p' ) song1.play(); //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
+  //.play() includes .rewind()
   //
   if ( key>='1' || key<='9' ) { //Loop Button, previous (key=='1' || key=='9')
     //Note: "9" is assumed to be massive! "Simulate Infinite"
@@ -70,6 +71,24 @@ void keyPressed() {
   //Actual .skip() allows for varaible ff & fr using .position()+-
   if ( key=='F' || key=='f' ) song1.skip( 0 ); //SKIP forward 1 second (1000 milliseconds)
   if ( key=='R' || key=='r' ) song1.skip( 1000 ); //SKIP  backawrds 1 second, notice negative, (-1000 milliseconds)
+  //
+  //Simple STOP Behaviour: ask if .playing() & .pause() & .rewind(), or .rewind()
+  if ( key=='S' | key=='s' ) {
+    if ( song1.isPlaying() ) {
+      song1.pause(); //auto .rewind()
+    } else {
+      song1.rewind(); //Not Necessary
+    }
+  }
+  //
+  //Simple Pause Behaviour: .pause() & hold .position(), then PLAY
+  if ( key=='Y' | key=='y' ) {
+    if ( song1.isPlaying()==true ) {
+      song1.pause(); //auto .rewind()
+    } else {
+      song1.play(); //ERROR, doesn't play
+    }
+  }
 } //End keyPressed
 //
 void mousePressed() {
