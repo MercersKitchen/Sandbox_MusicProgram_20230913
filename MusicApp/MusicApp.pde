@@ -33,7 +33,7 @@ void setup() {
   //Must use pure Java at OS Level to list fileName before loading Playlist
   println("Song Length (in milliseconds)", songMetaData1.length() );
   println("Song Length (in seconds)", songMetaData1.length()/1000 ); 
-  //println("Song Length (in minutes & seconds)", songMetaData1.?() ); //Gets Formula
+  println("Song Length (in minutes & seconds)", songMetaData1.length()/1000/60, "minutes", ( songMetaData1.length()/1000 - ( songMetaData1.length()/1000/60)*60 ), "seconds" ); //Gets Formula
   println("Song Title", songMetaData1.title() );
   println("Author", songMetaData1.author() );
   println("Composer", songMetaData1.composer() );
