@@ -22,7 +22,32 @@ void setup() {
   // See: https://poanchen.github.io/blog/2016/11/15/how-to-add-background-music-in-processing-3.0
   println(path);
   song1 = minim.loadFile( path );
+  songMetaData1 = song1.getMetaData();
   //song1.loop(0);
+  //
+  //Meta Data Println Testing
+  //For Prototyping, print all information to the console first
+  //Verifying Meta Data, 18 println's 
+  //Repeat: println("?", songMetaData1.?() );
+  println("File Name", songMetaData1.fileName() ); //Data Correct, Verified in Console
+  //Must use pure Java at OS Level to list fileName before loading Playlist
+  println("Song Length (in milliseconds)", songMetaData1.length() );
+  println("Song Length (in seconds)", songMetaData1.length()/1000 ); 
+  println("Song Length (in minutes & seconds)", songMetaData1.?() ); //Gets Formula
+  println("Song Title", songMetaData1.title() );
+  println("Author", songMetaData1.author() );
+  println("Composer", songMetaData1.composer() );
+  println("Orchestra", songMetaData1.orchestra() );
+  println("Album", songMetaData1.album() );
+  println("Disk", songMetaData1.disc() );
+  println("Publisher", songMetaData1.publisher() );
+  println("Date Released", songMetaData1.date() );
+  println("Copyright", songMetaData1.copyright() );
+  println("Comments", songMetaData1.comments() );
+  println("Lyrics", songMetaData1.lyrics() ); //OPTIONAL: Music App Sing Along
+  println("Track", songMetaData1.track() );
+  println("Genre", songMetaData1.genre() );
+  println("Encoded", songMetaData1.encoded() );
 } //End setup
 //
 void draw() {
@@ -33,7 +58,7 @@ void draw() {
   if ( song1.isPlaying() && !song1.isLooping() ) println("Play Once");
   //
   //Debugging Fast Forward and Fast Rewind
-  println( "Song Position", song1.position(), "Song Length", song1.length() );
+  //println( "Song Position", song1.position(), "Song Length", song1.length() );
   //
 } //End draw
 //
