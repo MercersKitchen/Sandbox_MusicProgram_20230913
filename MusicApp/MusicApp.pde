@@ -25,6 +25,7 @@ void setup() {
   println(path);
   song1 = minim.loadFile( path );
   songMetaData1 = song1.getMetaData();
+  generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
   //song1.loop(0);
   //
   //Meta Data Println Testing
