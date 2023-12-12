@@ -10,6 +10,8 @@ import ddf.minim.ugens.*;
 Minim minim; //creates object to access all functions
 AudioPlayer song1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
 AudioMetaData songMetaData1; //Stores everything from PlayList Properties TAB (.mp3)
+PFont generalFont;
+color purple = #2C08FF;
 //
 void setup() {
   //size() or fullScreen()
