@@ -6,6 +6,7 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 //
+
 //Global Variables
 Minim minim; //creates object to access all functions
 int numberOfSongs = 8; //Number of Files in Folder, OS to count
