@@ -8,7 +8,9 @@ import ddf.minim.ugens.*;
 //
 //Global Variables
 Minim minim; //creates object to access all functions
-AudioPlayer song1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
+int numberOfSongs = 8; //Number of Files in Folder, OS to count
+AudioPlayer[] song = new AudioPlayer[ numberOfSongs ]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
+AudioPlayer soundEffect1; //Playlist for Sound Effects
 AudioMetaData songMetaData1; //Stores everything from PlayList Properties TAB (.mp3)
 PFont generalFont;
 color purple = #2C08FF;
