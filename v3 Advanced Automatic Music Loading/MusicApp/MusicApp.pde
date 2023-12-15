@@ -26,7 +26,7 @@ int currentSong = 0; //PlayList variable for Next and Previous Buttons
 void setup() {
   //size() or fullScreen()
   //Display Algorithm
-  pathway = "../../FreeWare Music/MusicDownload/"; //Relative Path
+  pathway = "../../FreeWare Music AutoUpload Demo/MusicDownload/"; //Relative Path
   directory = sketchPath( pathway ); //Absolute Path
   println("Main Directory to Music Folder", directory);
   file = new File(directory);
@@ -63,23 +63,30 @@ void draw() {
   //Uploading Music Code
   fileCount = file.list().length;
   if ( startingFileCount!=fileCount ) {
-    startingFileCount = fileCount = file.list().length;
-    files = file.listFiles();
-    //
-    String[] songFilePathway = new String[fileCount];
-    for ( int i = 0; i < files.length; i++ ) {
-      songFilePathway[i] = ( files[i].toString() );
+    if ( startingFileCount>fileCount ) { //File Remove
+      exit(); //ERROR, not this simple
     }
-    //
-    numberOfSongs = fileCount; //Placeholder Only, reexecute lines after fileCount Known
-    song = new AudioPlayer[numberOfSongs]; //song is now similar to song1
-    songMetaData = new AudioMetaData[numberOfSongs]; //same as above
-    //
-    for ( int i=0; i<fileCount; i++ ) {
-      song[i]= minim.loadFile( songFilePathway[i] );
-      songMetaData[i] = song[i].getMetaData();
-    } //End Music Load
-    //
+    if ( startingFileCount<fileCount ) { //File Add
+      song[currentSong].pause(); //Needs to be at beginning b/c after file upload currentSong becomes confused
+      //
+      startingFileCount = fileCount = file.list().length;
+      files = file.listFiles();
+      //
+      String[] songFilePathway = new String[fileCount];
+      for ( int i = 0; i < files.length; i++ ) {
+        songFilePathway[i] = ( files[i].toString() );
+      }
+      //
+      numberOfSongs = fileCount; //Placeholder Only, reexecute lines after fileCount Known
+      song = new AudioPlayer[numberOfSongs]; //song is now similar to song1
+      songMetaData = new AudioMetaData[numberOfSongs]; //same as above
+      //
+      for ( int i=0; i<fileCount; i++ ) {
+        song[i]= minim.loadFile( songFilePathway[i] );
+        songMetaData[i] = song[i].getMetaData();
+      } //End Music Load
+      //
+    }
   } //End Auto Music Upload
   //Note: Looping Function
   //Note: logical operators could be nested IFs
