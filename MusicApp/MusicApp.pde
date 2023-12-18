@@ -1,3 +1,5 @@
+import java.io.*; //Pure Java Library
+//
 //Library: use Sketch / Import Library / Minim
 import ddf.minim.*;
 import ddf.minim.analysis.*;
@@ -6,63 +8,57 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 //
-
 //Global Variables
+File musicFolder; //Class for java.io.* library
 Minim minim; //creates object to access all functions
-int numberOfSongs = 8; //Number of Files in Folder, OS to count
-int numberOfSoundEffects = 4; //Number of Files in Folder, OS to count
-AudioPlayer[] song = new AudioPlayer[ numberOfSongs ]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
-AudioPlayer[] soundEffect = new AudioPlayer[ numberOfSoundEffects ]; //Playlist for Sound Effects
-AudioMetaData[] songMetaData = new AudioMetaData[ numberOfSongs ]; //Stores everything from PlayList Properties TAB (.mp3)
+int numberOfSongs = 1; //Placeholder Only, reexecute lines after fileCount Known
+AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
+AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
 PFont generalFont;
 color purple = #2C08FF;
 //
 void setup() {
   //size() or fullScreen()
   //Display Algorithm
-  minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  String groove = "groove.mp3";
-  String extension = ".mp3";
-  String pathway = "FreeWare Music/MusicDownload/"; //Relative Path
-  String path = sketchPath( pathway + groove ); //Absolute Path
-  // See: https://poanchen.github.io/blog/2016/11/15/how-to-add-background-music-in-processing-3.0
-  println(path);
-  song[0] = minim.loadFile( path );
-  songMetaData[0] = song[0].getMetaData();
-  generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
-  //song[0].loop(0);
+  String relativePathway = "FreeWare Music/MusicDownload/"; //Relative Path
+  String absolutePath = sketchPath( relativePathway ); //Absolute Path
+  println("Main Directory to Music Folder", absolutePath);
+  musicFolder = new File(absolutePath);
+  int musicFileCount = musicFolder.list().length;
+  println("File Count of the Music Folder", musicFileCount);
+  File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
+  println("List of all Directories of Each Song to Load into music playlist");
+  printArray(musicFiles);
+  //Demonstration Only, files know their names in Java.IO Library
+  for ( int i = 0; i < musicFiles.length; i++ ) {
+    println("File Name", musicFiles[i].getName() );
+  }
+  //NOTE: take each song's pathway and load the music into the PlayList
+  String[] songFilePathway = new String[musicFileCount];
+  for ( int i = 0; i < musicFiles.length; i++ ) {
+    songFilePathway[i] = ( musicFiles[i].toString() );
+  }
+  // Re-execute Playlist Population, similar to DIV Population
+  int numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
+  playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
+  playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
   //
-  //Meta Data Println Testing
-  //For Prototyping, print all information to the console first
-  //Verifying Meta Data, 18 println's 
-  //Repeat: println("?", songMetaData1.?() );
-  println("File Name", songMetaData[0].fileName() ); //Data Correct, Verified in Console
-  //Must use pure Java at OS Level to list fileName before loading Playlist
-  println("Song Length (in milliseconds)", songMetaData[0].length() );
-  println("Song Length (in seconds)", songMetaData[0].length()/1000 ); 
-  println("Song Length (in minutes & seconds)", songMetaData[0].length()/1000/60, "minutes", ( songMetaData[0].length()/1000 - ( songMetaData[0].length()/1000/60)*60 ), "seconds" ); //Gets Formula
-  println("Song Title", songMetaData[0].title() );
-  println("Author", songMetaData[0].author() );
-  println("Composer", songMetaData[0].composer() );
-  println("Orchestra", songMetaData[0].orchestra() );
-  println("Album", songMetaData[0].album() );
-  println("Disk", songMetaData[0].disc() );
-  println("Publisher", songMetaData[0].publisher() );
-  println("Date Released", songMetaData[0].date() );
-  println("Copyright", songMetaData[0].copyright() );
-  println("Comments", songMetaData[0].comment() );
-  println("Lyrics", songMetaData[0].lyrics() ); //OPTIONAL: Music App Sing Along
-  println("Track", songMetaData[0].track() );
-  println("Genre", songMetaData[0].genre() );
-  println("Encoded", songMetaData[0].encoded() );
+  minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
+  //
+  for ( int i=0; i<musicFileCount; i++ ) {
+    playList[i]= minim.loadFile( songFilePathway[i] );
+    playListMetaData[i] = playList[i].getMetaData();
+  } //End Music Load
+  generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
+  playList[0].play();
 } //End setup
 //
 void draw() {
   //NOte: Looping Function
   //Note: logical operators could be nested IFs
-  if ( song[0].isLooping() && song[0].loopCount()!=-1 ) println("There are", song[0].loopCount(), "loops left.");
-  if ( song[0].isLooping() && song[0].loopCount()==-1 ) println("Looping Infinitely");
-  if ( song[0].isPlaying() && !song[0].isLooping() ) println("Play Once");
+  if ( playList[0].isLooping() && playList[0].loopCount()!=-1 ) println("There are", playList[0].loopCount(), "loops left.");
+  if ( playList[0].isLooping() && playList[0].loopCount()==-1 ) println("Looping Infinitely");
+  if ( playList[0].isPlaying() && !playList[0].isLooping() ) println("Play Once");
   //
   //Debugging Fast Forward and Fast Rewind
   //println( "Song Position", song1.position(), "Song Length", song1.length() );
@@ -74,11 +70,12 @@ void draw() {
   //Values: [LEFT | CENTER | RIGHT] & [TOP | CENTER | BOTTOM | BASELINE]
   int size = 10; //Change this font size
   textFont(generalFont, size); //Change the number until it fits, largest font size
-  text(songMetaData[0].title(), width*1/4, height*0, width*1/2, height*3/10);
+  text(playListMetaData[0].title(), width*1/4, height*0, width*1/2, height*3/10);
   fill(255); //Reset to white for rest of the program
 } //End draw
 //
 void keyPressed() {
+  /* Broken KeyBinds
   if ( key=='P' || key=='p' ) song[0].play(); //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
   //.play() includes .rewind()
   //
@@ -131,6 +128,7 @@ void keyPressed() {
       song[0].play(); //ERROR, doesn't play
     }
   }
+  */
 } //End keyPressed
 //
 void mousePressed() {
