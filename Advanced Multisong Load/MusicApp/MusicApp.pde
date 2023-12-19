@@ -9,7 +9,7 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 //
 //Global Variables
-File musicFolder; //Class for java.io.* library
+File musicFolder, soundEffectFolder; //Class for java.io.* library
 Minim minim; //creates object to access all functions
 int numberOfSongs = 1, numberOfSoundEffects = 1; //Placeholder Only, reexecute lines after fileCount Known
 AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
@@ -20,26 +20,46 @@ color purple = #2C08FF;
 void setup() {
   //size() or fullScreen()
   //Display Algorithm
-  String relativePathway = "FreeWare Music/MusicDownload/"; //Relative Path
-  String absolutePath = sketchPath( relativePathway ); //Absolute Path
-    musicFolder = new File(absolutePath);
+  //Music File Load
+  String relativeMusicPathway = "FreeWare Music/MusicDownload/"; //Relative Path
+  String absoluteMusicPath = sketchPath( relativeMusicPathway ); //Absolute Path
+    musicFolder = new File(absoluteMusicPath);
   int musicFileCount = musicFolder.list().length;
     File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
   String[] songFilePathway = new String[musicFileCount];
   for ( int i = 0; i < musicFiles.length; i++ ) {
     songFilePathway[i] = ( musicFiles[i].toString() );
   }
-  // Re-execute Playlist Population, similar to DIV Population
+  //Re-execute Playlist Population, similar to DIV Population
   int numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
   playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
   playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
-  //
-  minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  //
   for ( int i=0; i<musicFileCount; i++ ) {
     playList[i]= minim.loadFile( songFilePathway[i] );
     playListMetaData[i] = playList[i].getMetaData();
   } //End Music Load
+  //
+  // Sound Effects Load
+  String relativeSoundPathway = "FreeWare Music/SoundEffect/"; //Relative Path
+  String absoluteSoundPath = sketchPath( relativeSoundPathway ); //Absolute Path
+    soundEffectFolder = new File(absoluteSoundPath);
+  int musicFileCount = musicFolder.list().length;
+    File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
+  String[] songFilePathway = new String[musicFileCount];
+  for ( int i = 0; i < musicFiles.length; i++ ) {
+    songFilePathway[i] = ( musicFiles[i].toString() );
+  }
+  //Re-execute Playlist Population, similar to DIV Population
+  int numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
+  playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
+  playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
+  for ( int i=0; i<musicFileCount; i++ ) {
+    playList[i]= minim.loadFile( songFilePathway[i] );
+    playListMetaData[i] = playList[i].getMetaData();
+  } //End Music Load
+  //
+  minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
+  //
   generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
   playList[0].play();
 } //End setup
