@@ -42,9 +42,9 @@ void setup() {
   // Sound Effects Load
   String relativeSoundPathway = "FreeWare Music/SoundEffect/"; //Relative Path
   String absoluteSoundPath = sketchPath( relativeSoundPathway ); //Absolute Path
-    soundEffectFolder = new File(absoluteSoundPath);
-  int musicFileCount = musicFolder.list().length;
-    File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
+  soundEffectFolder = new File(absoluteSoundPath);
+  int soundEffectFileCount = soundEffectFolder.list().length;
+  File[] soundEffectFiles = soundEffectFolder.listFiles(); //String of Full Directies
   String[] songFilePathway = new String[musicFileCount];
   for ( int i = 0; i < musicFiles.length; i++ ) {
     songFilePathway[i] = ( musicFiles[i].toString() );
