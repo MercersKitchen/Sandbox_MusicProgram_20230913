@@ -11,10 +11,10 @@ import ddf.minim.ugens.*;
 //Global Variables
 File musicFolder; //Class for java.io.* library
 Minim minim; //creates object to access all functions
-int numberOfSongs = 1; //Placeholder Only, reexecute lines after fileCount Known
+int numberOfSongs = 1, numberOfSoundEffects = 1; //Placeholder Only, reexecute lines after fileCount Known
 AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
-PFont generalFont;
+AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 color purple = #2C08FF;
 //
 void setup() {
@@ -22,18 +22,9 @@ void setup() {
   //Display Algorithm
   String relativePathway = "FreeWare Music/MusicDownload/"; //Relative Path
   String absolutePath = sketchPath( relativePathway ); //Absolute Path
-  println("Main Directory to Music Folder", absolutePath);
-  musicFolder = new File(absolutePath);
+    musicFolder = new File(absolutePath);
   int musicFileCount = musicFolder.list().length;
-  println("File Count of the Music Folder", musicFileCount);
-  File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
-  println("List of all Directories of Each Song to Load into music playlist");
-  printArray(musicFiles);
-  //Demonstration Only, files know their names in Java.IO Library
-  for ( int i = 0; i < musicFiles.length; i++ ) {
-    println("File Name", musicFiles[i].getName() );
-  }
-  //NOTE: take each song's pathway and load the music into the PlayList
+    File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
   String[] songFilePathway = new String[musicFileCount];
   for ( int i = 0; i < musicFiles.length; i++ ) {
     songFilePathway[i] = ( musicFiles[i].toString() );
