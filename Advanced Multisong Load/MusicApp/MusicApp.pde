@@ -45,7 +45,7 @@ void setup() {
   soundEffectFolder = new File(absoluteSoundPath);
   int soundEffectFileCount = soundEffectFolder.list().length;
   File[] soundEffectFiles = soundEffectFolder.listFiles(); //String of Full Directies
-  String[] songFilePathway = new String[musicFileCount];
+  String[] soundEffectFilePathway = new String[soundEffectFileCount];
   for ( int i = 0; i < musicFiles.length; i++ ) {
     songFilePathway[i] = ( musicFiles[i].toString() );
   }
