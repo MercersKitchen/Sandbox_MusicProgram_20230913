@@ -46,8 +46,8 @@ void setup() {
   int soundEffectFileCount = soundEffectFolder.list().length;
   File[] soundEffectFiles = soundEffectFolder.listFiles(); //String of Full Directies
   String[] soundEffectFilePathway = new String[soundEffectFileCount];
-  for ( int i = 0; i < musicFiles.length; i++ ) {
-    songFilePathway[i] = ( musicFiles[i].toString() );
+  for ( int i = 0; i < soundEffectFiles.length; i++ ) {
+    soundEffectFilePathway[i] = ( soundEffectFiles[i].toString() );
   }
   //Re-execute Playlist Population, similar to DIV Population
   int numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
