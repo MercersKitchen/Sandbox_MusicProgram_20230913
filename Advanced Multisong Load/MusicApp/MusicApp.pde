@@ -50,12 +50,10 @@ void setup() {
     soundEffectFilePathway[i] = ( soundEffectFiles[i].toString() );
   }
   //Re-execute Playlist Population, similar to DIV Population
-  int numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
-  playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
-  playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
-  for ( int i=0; i<musicFileCount; i++ ) {
-    playList[i]= minim.loadFile( songFilePathway[i] );
-    playListMetaData[i] = playList[i].getMetaData();
+  numberOfSoundEffects = soundEffectFileCount; //Placeholder Only, reexecute lines after fileCount Known
+  soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1
+  for ( int i=0; i<soundEffectFileCount; i++ ) {
+    soundEffects[i]= minim.loadFile( soundEffectFilePathway[i] );
   } //End Music Load
   //
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
