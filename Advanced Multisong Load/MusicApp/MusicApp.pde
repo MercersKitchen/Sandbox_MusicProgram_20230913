@@ -16,6 +16,7 @@ AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar t
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 color purple = #2C08FF;
+PFont generalFont;
 //
 void setup() {
   //size() or fullScreen()
