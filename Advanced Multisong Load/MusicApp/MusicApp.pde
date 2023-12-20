@@ -82,6 +82,9 @@ void draw() {
   textFont(generalFont, size); //Change the number until it fits, largest font size
   text(playListMetaData[currentSong].title(), width*1/4, height*0, width*1/2, height*3/10);
   fill(255); //Reset to white for rest of the program
+  //
+  //Autoplay, next song automatically plays
+  if () {} else {}
 } //End draw
 //
 void keyPressed() {
