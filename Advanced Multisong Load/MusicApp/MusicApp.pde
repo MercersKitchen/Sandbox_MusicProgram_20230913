@@ -91,6 +91,8 @@ void draw() {
   fill(255); //Reset to white for rest of the program
   //
   //Autoplay, next song automatically plays
+  //ERROR: AutoPlay breaks STOP, there is never a song not playing
+  //ERROR: AutoPlay will break at the end of the play list
   if ( playList[currentSong].isPlaying() ) {
     //Empty IF, TRUE
   } else {
@@ -122,13 +124,20 @@ void keyPressed() {
     }
   }
   //Simple NEXT and PREVIOUS
-  if ( key==CODED && keyCode==LEFT ) { //Previous
-    
+  /*if ( key==CODED && keyCode==LEFT ) { //Previous
+    if ( .isPlaying() ) {
+      pause();
+      .rewind();
+      currentSong = currentSong - 1; //currentSong--; currentSong-=1
+      .play();
+    } else {
+      
+    }
   } //End Previous
   if ( key==CODED && keyCode==RIGHT ) { //NEXT
-    
   } //End NEXT
   //
+  */
   /* Broken KeyBinds
    //
    if ( key>='1' || key<='9' ) { //Loop Button, previous (key=='1' || key=='9')
