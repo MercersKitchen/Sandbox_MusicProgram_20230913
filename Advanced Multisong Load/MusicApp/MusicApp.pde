@@ -11,7 +11,8 @@ import ddf.minim.ugens.*;
 //Global Variables
 File musicFolder, soundEffectFolder; //Class for java.io.* library
 Minim minim; //creates object to access all functions
-int numberOfSongs = 1, numberOfSoundEffects = 1, currentSong=4; //Placeholder Only, reexecute lines after fileCount Known
+int numberOfSongs = 1, numberOfSoundEffects = 1; //Placeholder Only, reexecute lines after fileCount Known
+int currentSong=0; //Variable is rewritten in setup()
 AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
@@ -60,6 +61,12 @@ void setup() {
     soundEffects[i]= minim.loadFile( soundEffectFilePathway[i] );
   } //End Music Load
   generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
+  //
+  //Random Start with any song in playList
+  //Example of Population, random style
+  currentSong = int ( random(0, numberOfSongs-1) ); //casting truncates the decimal
+  //println("Random Start", currentSong);
+  //
   playList[currentSong].play();
 } //End setup
 //
