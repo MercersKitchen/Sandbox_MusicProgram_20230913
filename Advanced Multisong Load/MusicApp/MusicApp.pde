@@ -121,6 +121,14 @@ void keyPressed() {
       playList[currentSong].rewind(); //Not Necessary
     }
   }
+  //Simple NEXT and PREVIOUS
+  if ( key==CODED && keyCode==LEFT ) { //Previous
+    
+  } //End Previous
+  if ( key==CODED && keyCode==RIGHT ) { //NEXT
+    
+  } //End NEXT
+  //
   /* Broken KeyBinds
    //
    if ( key>='1' || key<='9' ) { //Loop Button, previous (key=='1' || key=='9')
