@@ -11,7 +11,7 @@ import ddf.minim.ugens.*;
 //Global Variables
 File musicFolder, soundEffectFolder; //Class for java.io.* library
 Minim minim; //creates object to access all functions
-int numberOfSongs = 1, numberOfSoundEffects = 1, currentSong=0; //Placeholder Only, reexecute lines after fileCount Known
+int numberOfSongs = 1, numberOfSoundEffects = 1, currentSong=4; //Placeholder Only, reexecute lines after fileCount Known
 AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
@@ -84,7 +84,14 @@ void draw() {
   fill(255); //Reset to white for rest of the program
   //
   //Autoplay, next song automatically plays
-  if () {} else {}
+  if ( playList[currentSong].isPlaying() ) {
+    //Empty IF, TRUE
+  } else {
+    //currentSong at end of FILE
+    playList[currentSong].rewind();
+    currentSong = currentSong + 1; //currentSong++; currentSong+=1
+    playList[currentSong].play();
+  }
 } //End draw
 //
 void keyPressed() {
