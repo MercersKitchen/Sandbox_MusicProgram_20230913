@@ -97,6 +97,8 @@ void draw() {
     //currentSong at end of FILE
     playList[currentSong].rewind();
     currentSong = currentSong + 1; //currentSong++; currentSong+=1
+    //Random here, not +1, is called SHUFFLE
+    //This SHUFFLE randomized the folder, not what has already played
     playList[currentSong].play();
   }
 } //End draw
