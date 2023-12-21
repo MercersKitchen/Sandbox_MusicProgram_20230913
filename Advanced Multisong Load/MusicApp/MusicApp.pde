@@ -101,12 +101,22 @@ void draw() {
     if ( stopBoolean == true ) {
       playList[currentSong].pause();
     } else {
-       if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.9  ) {} else {}
-      playList[currentSong].rewind();
-      currentSong = currentSong + 1; //currentSong++; currentSong+=1
-      //Random here, not +1, is called SHUFFLE
-      //This SHUFFLE randomized the folder, not what has already played
-      playList[currentSong].play();
+      if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.9  ) {
+        playList[currentSong].rewind();
+        currentSong = currentSong + 1; //currentSong++; currentSong+=1
+        //Random here, not +1, is called SHUFFLE
+        //This SHUFFLE randomized the folder, not what has already played
+        playList[currentSong].play();
+      } else if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.2 ) {
+        playList[currentSong].rewind();
+        currentSong = currentSong + 1; //currentSong++; currentSong+=1
+        //Random here, not +1, is called SHUFFLE
+        //This SHUFFLE randomized the folder, not what has already played
+        playList[currentSong].play();
+      } else {
+        playList[currentSong].rewind();
+        playList[currentSong].play();
+      }
     }
   }
 } //End draw
