@@ -18,7 +18,7 @@ AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as a
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 color purple = #2C08FF;
 PFont generalFont;
-Boolean stopBoolean=false, pauseBoolean=false;
+Boolean stopBoolean=false, pauseBoolean=false, changeState=false;
 //
 void setup() {
   //size() or fullScreen()
@@ -72,11 +72,11 @@ void setup() {
 } //End setup
 //
 void draw() {
-  //NOte: Looping Function
+  //Note: Looping Function
   //Note: logical operators could be nested IFs
-  if ( playList[currentSong].isLooping() && playList[currentSong].loopCount()!=-1 ) println("There are", playList[currentSong].loopCount(), "loops left.");
-  if ( playList[currentSong].isLooping() && playList[currentSong].loopCount()==-1 ) println("Looping Infinitely");
-  if ( playList[currentSong].isPlaying() && !playList[currentSong].isLooping() ) println("Play Once");
+  //if ( playList[currentSong].isLooping() && playList[currentSong].loopCount()!=-1 ) println("There are", playList[currentSong].loopCount(), "loops left.");
+  //if ( playList[currentSong].isLooping() && playList[currentSong].loopCount()==-1 ) println("Looping Infinitely");
+  //if ( playList[currentSong].isPlaying() && !playList[currentSong].isLooping() ) println("Play Once");
   //
   //Debugging Fast Forward and Fast Rewind
   //println( "Song Position", song1.position(), "Song Length", song1.length() );
@@ -92,60 +92,65 @@ void draw() {
   fill(255); //Reset to white for rest of the program
   //
   //Autoplay, next song automatically plays
-  //ERROR: AutoPlay breaks STOP, there is never a song not playing
-  //ERROR: AutoPlay will break at the end of the play list
   if ( playList[currentSong].isPlaying() ) {
-    //Space where Pause Boolean is Broken
-    if ( stopBoolean == true ) playList[currentSong].pause();
-  } else {
-    //currentSong at end of FILE
-    if ( stopBoolean == true ) {
+    //println("hereD1", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
+    if ( stopBoolean==true || pauseBoolean==true ) {
+      //changeState=true;
       playList[currentSong].pause();
-    } else {
-      if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.9  ) {
-        if ( pauseBoolean==false ) playList[currentSong].rewind();
-        currentSong = currentSong + 1; //currentSong++; currentSong+=1
-        //Random here, not +1, is called SHUFFLE
-        //This SHUFFLE randomized the folder, not what has already played
-        if ( pauseBoolean==false ) playList[currentSong].play();
-      } else if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.2 ) {
-        if ( pauseBoolean==false ) playList[currentSong].rewind();
-        currentSong = currentSong + 1; //currentSong++; currentSong+=1
-        //Random here, not +1, is called SHUFFLE
-        //This SHUFFLE randomized the folder, not what has already played
-        if ( pauseBoolean==false ) playList[currentSong].play();
+      //println("hereD2", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
+    }
+    if ( stopBoolean==true ) playList[currentSong].rewind();
+  } else {
+    //println("hereD3", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
+    if ( changeState==false ) {
+      playList[currentSong].rewind();
+      if (currentSong==numberOfSongs-1) {
+        currentSong=0;
       } else {
-        if ( pauseBoolean==false ) playList[currentSong].rewind();
-        if ( pauseBoolean==false ) playList[currentSong].play();
+        currentSong = currentSong + 1; //currentSong--; currentSong-=1}
       }
+      playList[currentSong].play();
+      //println("hereD4", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
+    }
+    if ( stopBoolean==false && pauseBoolean==false && changeState==true ) {
+      playList[currentSong].rewind();
+      playList[currentSong].play();
+      changeState=false;
+      //println("hereD5", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
+    }
+    if ( pauseBoolean==false && stopBoolean==false  && changeState==true) {
+      playList[currentSong].play();
+      changeState=false;
+      //println("hereD6", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
     }
   }
-  println ("here", stopBoolean, pauseBoolean);
 } //End draw
 //
 void keyPressed() {
   if ( soundEffects[2].position()!=0 ) soundEffects[2].rewind();
   soundEffects[2].play();
+  println ( "herek1", playList[currentSong].isPlaying(), pauseBoolean );
   //
   if ( key=='P' || key=='p' ) {
-    delay( soundEffects[2].length() ); //parameter in millisecond
-    if ( playList[currentSong].isPlaying() ) {
-      if ( pauseBoolean==false ) {
-        pauseBoolean=true;
-      } else {
-        pauseBoolean=false;
-      }
+    changeState=true;
+    if ( pauseBoolean==false ) {
+      pauseBoolean=true;
+      println("herek2", pauseBoolean);
+    } else {
+      pauseBoolean=false;
+      println("herek3", pauseBoolean);
+      //playList[currentSong].play();
     }
     if (  stopBoolean==true ) {
       stopBoolean=false;
-    } else {
-      pauseBoolean=true; //ERROR: pauseBoolean needs to be turned off sometime
     }
+    println ( "herek4", playList[currentSong].isPlaying(), pauseBoolean, stopBoolean, changeState );
   }
   //
   //Simple STOP Behaviour: ask if .playing() & .pause() & .rewind(), or .rewind()
   if ( key=='S' | key=='s' ) {
-    if ( playList[currentSong].isPlaying() ) {
+    changeState=true;
+    if ( stopBoolean == false ) {
       stopBoolean = true;
       //playList[currentSong].pause(); //auto .rewind()
     } else {
@@ -154,20 +159,22 @@ void keyPressed() {
     }
   }
   //Simple NEXT and PREVIOUS
-  /*if ( key==CODED && keyCode==LEFT ) { //Previous
-   if ( .isPlaying() ) {
-   pause();
-   .rewind();
-   currentSong = currentSong - 1; //currentSong--; currentSong-=1
-   .play();
-   } else {
-   
-   }
-   } //End Previous
-   if ( key==CODED && keyCode==RIGHT ) { //NEXT
-   } //End NEXT
-   //
-   */
+  if ( key==CODED && keyCode==LEFT ) { //Previous
+    if ( playList[currentSong].isPlaying() ) {
+      playList[currentSong].pause();
+      playList[currentSong].rewind();
+      if (currentSong==0) {
+        currentSong=numberOfSongs-1;
+      } else {
+        currentSong = currentSong - 1; //currentSong--; currentSong-=1}
+      }
+    }
+    println(currentSong);
+    playList[currentSong].play();
+  } //End Previous
+  if ( key==CODED && keyCode==RIGHT ) { //NEXT
+  } //End NEXT
+  //
   /* Broken KeyBinds
    //
    if ( key>='1' || key<='9' ) { //Loop Button, previous (key=='1' || key=='9')
