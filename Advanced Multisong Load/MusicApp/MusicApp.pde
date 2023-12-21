@@ -95,6 +95,7 @@ void draw() {
   //ERROR: AutoPlay breaks STOP, there is never a song not playing
   //ERROR: AutoPlay will break at the end of the play list
   if ( playList[currentSong].isPlaying() ) {
+    //Space where Pause Boolean is Broken
     if ( stopBoolean == true ) playList[currentSong].pause();
   } else {
     //currentSong at end of FILE
@@ -119,6 +120,7 @@ void draw() {
       }
     }
   }
+  println ("here", stopBoolean, pauseBoolean);
 } //End draw
 //
 void keyPressed() {
