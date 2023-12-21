@@ -18,6 +18,7 @@ AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as a
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 color purple = #2C08FF;
 PFont generalFont;
+Boolean stopBoolean=false;
 //
 void setup() {
   //size() or fullScreen()
@@ -94,14 +95,19 @@ void draw() {
   //ERROR: AutoPlay breaks STOP, there is never a song not playing
   //ERROR: AutoPlay will break at the end of the play list
   if ( playList[currentSong].isPlaying() ) {
-    //Empty IF, TRUE
+    if ( stopBoolean == true ) playList[currentSong].pause();
   } else {
     //currentSong at end of FILE
-    playList[currentSong].rewind();
-    currentSong = currentSong + 1; //currentSong++; currentSong+=1
-    //Random here, not +1, is called SHUFFLE
-    //This SHUFFLE randomized the folder, not what has already played
-    playList[currentSong].play();
+    if ( stopBoolean == true ) {
+      playList[currentSong].pause();
+    } else {
+       if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.9  ) {} else {}
+      playList[currentSong].rewind();
+      currentSong = currentSong + 1; //currentSong++; currentSong+=1
+      //Random here, not +1, is called SHUFFLE
+      //This SHUFFLE randomized the folder, not what has already played
+      playList[currentSong].play();
+    }
   }
 } //End draw
 //
@@ -118,26 +124,28 @@ void keyPressed() {
   //Simple STOP Behaviour: ask if .playing() & .pause() & .rewind(), or .rewind()
   if ( key=='S' | key=='s' ) {
     if ( playList[currentSong].isPlaying() ) {
-      playList[currentSong].pause(); //auto .rewind()
+      stopBoolean = true;
+      //playList[currentSong].pause(); //auto .rewind()
     } else {
-      playList[currentSong].rewind(); //Not Necessary
+      stopBoolean = false;
+      //playList[currentSong].rewind(); //Not Necessary
     }
   }
   //Simple NEXT and PREVIOUS
   /*if ( key==CODED && keyCode==LEFT ) { //Previous
-    if ( .isPlaying() ) {
-      pause();
-      .rewind();
-      currentSong = currentSong - 1; //currentSong--; currentSong-=1
-      .play();
-    } else {
-      
-    }
-  } //End Previous
-  if ( key==CODED && keyCode==RIGHT ) { //NEXT
-  } //End NEXT
-  //
-  */
+   if ( .isPlaying() ) {
+   pause();
+   .rewind();
+   currentSong = currentSong - 1; //currentSong--; currentSong-=1
+   .play();
+   } else {
+   
+   }
+   } //End Previous
+   if ( key==CODED && keyCode==RIGHT ) { //NEXT
+   } //End NEXT
+   //
+   */
   /* Broken KeyBinds
    //
    if ( key>='1' || key<='9' ) { //Loop Button, previous (key=='1' || key=='9')
