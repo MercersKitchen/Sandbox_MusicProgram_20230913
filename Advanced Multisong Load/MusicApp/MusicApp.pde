@@ -18,7 +18,7 @@ AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as a
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 color purple = #2C08FF;
 PFont generalFont;
-Boolean stopBoolean=false;
+Boolean stopBoolean=false, pauseBoolean=false;
 //
 void setup() {
   //size() or fullScreen()
@@ -102,20 +102,20 @@ void draw() {
       playList[currentSong].pause();
     } else {
       if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.9  ) {
-        playList[currentSong].rewind();
+        if ( pauseBoolean==false ) playList[currentSong].rewind();
         currentSong = currentSong + 1; //currentSong++; currentSong+=1
         //Random here, not +1, is called SHUFFLE
         //This SHUFFLE randomized the folder, not what has already played
-        playList[currentSong].play();
+        if ( pauseBoolean==false ) playList[currentSong].play();
       } else if ( playList[currentSong].position() > playList[currentSong].length()-playList[currentSong].length()*0.2 ) {
-        playList[currentSong].rewind();
+        if ( pauseBoolean==false ) playList[currentSong].rewind();
         currentSong = currentSong + 1; //currentSong++; currentSong+=1
         //Random here, not +1, is called SHUFFLE
         //This SHUFFLE randomized the folder, not what has already played
-        playList[currentSong].play();
+        if ( pauseBoolean==false ) playList[currentSong].play();
       } else {
-        playList[currentSong].rewind();
-        playList[currentSong].play();
+        if ( pauseBoolean==false ) playList[currentSong].rewind();
+        if ( pauseBoolean==false ) playList[currentSong].play();
       }
     }
   }
@@ -127,8 +127,18 @@ void keyPressed() {
   //
   if ( key=='P' || key=='p' ) {
     delay( soundEffects[2].length() ); //parameter in millisecond
-    playList[currentSong].play(); //Parameter is milli-seconds from start of audio file to start playing (illustrate with examples)
-    //.play() includes .rewind()??
+    if ( playList[currentSong].isPlaying() ) {
+      if ( pauseBoolean==false ) {
+        pauseBoolean=true;
+      } else {
+        pauseBoolean=false;
+      }
+    }
+    if (  stopBoolean==true ) {
+      stopBoolean=false;
+    } else {
+      pauseBoolean=true; //ERROR: pauseBoolean needs to be turned off sometime
+    }
   }
   //
   //Simple STOP Behaviour: ask if .playing() & .pause() & .rewind(), or .rewind()
